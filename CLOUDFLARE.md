@@ -42,5 +42,20 @@ npx wrangler login
 npm run deploy:cloudflare
 ```
 
-El sitio actual en Netlify no se modifica.
+## Deploy automatico desde GitHub
 
+Este repo incluye `.github/workflows/deploy-cloudflare.yml` para desplegar a `cheatguys-cloudflare` cuando haya push a `main`.
+
+Configura este secret en GitHub:
+
+```text
+CLOUDFLARE_API_TOKEN
+```
+
+El token necesita permiso de Cloudflare Pages Edit para la cuenta:
+
+```text
+84a5120877eae87f1af6b08f6adb4dd9
+```
+
+El sitio actual en Netlify no se modifica.
