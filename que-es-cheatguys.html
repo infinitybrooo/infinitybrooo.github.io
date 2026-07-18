@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es" translate="no" class="notranslate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="google" content="notranslate">
+    <title>CheatGuys! - &iquest;Qu&eacute; es CheatGuys!?</title>
+    <link rel="icon" type="image/png" href="assets/branding/favicon.webp">
+    <link rel="stylesheet" href="css/fonts.css?v=ea679c4af9d0">
+    <link rel="stylesheet" href="css/variables.css?v=0138b1cb7168">
+    <link rel="stylesheet" href="css/galeria.css?v=884bf782506f">
+    <link rel="stylesheet" href="css/que-es-cheatguys.css?v=15a5d3963b8b">
+</head>
+<body class="notranslate cheatguys-info-page">
+
+    <audio id="bgMusicPage" src="assets/audio/seccion_serie.mp3" loop preload="none"></audio>
+
+    <button id="sidebarToggle" class="cg-sidebar-toggle" onclick="toggleSidebar()" aria-label="Abrir/cerrar menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav id="sidebarNav" class="cg-sidebar" aria-label="Menu principal">
+        <div class="cg-sidebar-header">
+            <img src="assets/branding/mobile/logo-solo.webp" alt="CheatGuys!" class="cg-sidebar-brand-logo">
+        </div>
+
+        <a href="index.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-home" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Inicio</span>
+        </a>
+        <a href="quienes-somos.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-about" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">&iquest;Qui&eacute;nes somos?</span>
+        </a>
+        <a href="que-es-cheatguys.html" class="cg-sidebar-link active">
+            <span class="cg-sidebar-icon cg-icon-cheatguys" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">&iquest;Qu&eacute; es CheatGuys!?</span>
+        </a>
+        <a href="minijuego.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-minigame" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Minijuegos</span>
+        </a>
+        <a href="galeria.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-gallery" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Galer&iacute;a</span>
+        </a>
+
+        <a href="biblia-produccion.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-bible" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Biblia de Producci&oacute;n</span>
+        </a>
+
+        <div class="cg-sidebar-audio" aria-label="Control de musica">
+            <button id="musicToggleBtn" class="cg-audio-toggle" title="Musica ON/OFF" onclick="toggleMusic()" aria-label="Activar o desactivar musica" aria-pressed="true">&#9835;</button>
+            <label class="cg-audio-slider-label" for="pageVolumeSlider">VOL</label>
+            <input type="range" id="pageVolumeSlider" min="0" max="1" step="0.01" value="0.4" title="Control de Volumen" aria-label="Volumen de musica">
+        </div>
+    </nav>
+
+    <div class="info-scroll-meter" aria-hidden="true"><span id="infoScrollMeter"></span></div>
+
+    <main id="mainContent" class="info-main">
+        <section class="info-hero cg-info-reveal">
+            <div class="info-hero-copy">
+                <p class="info-system-line">InfinityOS // DIRECTORY_06</p>
+                <h1>&iquest;QU&Eacute; ES CHEATGUYS!? <span class="cursor-blink">█</span></h1>
+                <p class="info-hero-lead">
+                    Una comedia animada sobre una chica con ansiedad social que intenta hacer amigos de la forma
+                    m&aacute;s l&oacute;gica y menos l&oacute;gica posible: formando una banda de rock.
+                </p>
+                <div class="info-hero-actions" aria-label="Accesos de seccion">
+                    <a href="#premisa" class="info-btn">[ PREMISA ]</a>
+                    <a href="#neoteno" class="info-btn info-btn-alt">[ NEO_TENO ]</a>
+                </div>
+            </div>
+
+            <button class="info-hero-media info-image-card" type="button" data-full="assets/images/cheatguys-info/info-team-stack.webp" data-title="PARTY_FORMATION.PNG">
+                <img src="assets/images/cheatguys-info/mobile/info-team-stack.webp" alt="Equipo principal de CheatGuys!" loading="eager" decoding="async" fetchpriority="high">
+                <span class="info-img-tag">PARTY_FORMATION.PNG</span>
+            </button>
+        </section>
+
+        <section id="premisa" class="info-section info-split cg-info-reveal">
+            <article class="info-copy-card">
+                <span class="info-card-index">01</span>
+                <h2>Premisa desbloqueada</h2>
+                <p>
+                    Akane no quer&iacute;a destacar. Quer&iacute;a sobrevivir secundaria, jugar rhythm games,
+                    tocar guitarra y hablar con la menor cantidad posible de humanos.
+                </p>
+                <p>
+                    Su plan para hacer amigos fue tan l&oacute;gico como desastroso: formar una banda.
+                    Funcion&oacute; demasiado bien y atrajo a adolescentes intensos, raros y completamente incompatibles.
+                </p>
+                <p class="info-punchline">
+                    Resultado: una banda, un garaje invadido, demasiadas emociones desbloqueadas y cero puntos en
+                    habilidades sociales.
+                </p>
+            </article>
+
+            <button class="info-image-card info-tall-card" type="button" data-full="assets/images/cheatguys-info/info-akane-guitar.webp" data-title="AKANE_SOCIAL_SURVIVAL.EXE">
+                <img src="assets/images/cheatguys-info/mobile/info-akane-guitar.webp" alt="Akane tocando guitarra" loading="lazy" decoding="async">
+                <span class="info-img-tag">AKANE_SOCIAL_SURVIVAL.EXE</span>
+            </button>
+        </section>
+
+        <section class="info-section cg-info-reveal">
+            <div class="info-section-heading">
+                <h2>La f&oacute;rmula CheatGuys!</h2>
+                <p>Comedia absurda, m&uacute;sica escolar, HUDs mentales, cultura otaku, caos mexicano y adolescentes haciendo arte con cero presupuesto y demasiada emoci&oacute;n.</p>
+            </div>
+
+            <div class="info-feature-grid">
+                <article class="info-feature-card">
+                    <span class="info-feature-icon">01</span>
+                    <h3>Comedia absurda</h3>
+                    <p>Ensayos ca&oacute;ticos, reacciones exageradas, decisiones terribles y humor meta con alma de cartoon.</p>
+                </article>
+                <article class="info-feature-card">
+                    <span class="info-feature-icon">02</span>
+                    <h3>Banda escolar</h3>
+                    <p>Una banda que intenta sonar bien mientras aprende a convivir sin explotar emocionalmente.</p>
+                </article>
+                <article class="info-feature-card">
+                    <span class="info-feature-icon">03</span>
+                    <h3>Anime con picante</h3>
+                    <p>Est&eacute;tica 2000s, HUDs mentales, chiptune, J-Rock y caos mexicano con neones saturados.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="info-section info-chaos-band cg-info-reveal">
+            <button class="info-image-card" type="button" data-full="assets/images/cheatguys-info/info-band-chaos.webp" data-title="FRIENDSHIP_GLITCH.JPG">
+                <img src="assets/images/cheatguys-info/mobile/info-band-chaos.webp" alt="Banda de CheatGuys! en caos divertido" loading="lazy" decoding="async">
+                <span class="info-img-tag">FRIENDSHIP_GLITCH.JPG</span>
+            </button>
+
+            <div class="info-chaos-copy">
+                <span class="info-card-index">02</span>
+                <h2>Una amistad mal calibrada</h2>
+                <p>
+                    CheatGuys! habla de crecer cuando no encajas, fallar en p&uacute;blico, hacer arte con pocos recursos
+                    y descubrir que la amistad no siempre se ve bonita.
+                </p>
+                <p>
+                    A veces suena desafinada, grita mucho, ocupa tu sill&oacute;n favorito y aun as&iacute; termina siendo justo
+                    lo que necesitabas.
+                </p>
+            </div>
+        </section>
+
+        <section id="neoteno" class="info-section info-neoteno cg-info-reveal">
+            <div class="info-section-heading">
+                <h2>Neo Teno: el mapa del desastre</h2>
+                <p>Donde el manga, el mariachi, el karaoke y los tianguis tecnol&oacute;gicos conviven en hora pico.</p>
+            </div>
+
+            <div class="info-neoteno-layout">
+                <article class="info-copy-card">
+                    <span class="info-card-index">03</span>
+                    <h3>M&eacute;xico niponizado</h3>
+                    <p>
+                        La historia ocurre en una versi&oacute;n alternativa del Valle de M&eacute;xico donde Jap&oacute;n y M&eacute;xico
+                        se mezclaron hasta crear una ciudad multicolor, intensa y profundamente rara.
+                    </p>
+                    <ul class="info-pixel-list">
+                        <li>Templos sinto&iacute;stas entre puestos de tamales.</li>
+                        <li>Trenes bala cruzando murales con papel picado.</li>
+                        <li>Onigiris con chile piqu&iacute;n y pantallas LED anunciando karaoke escolar.</li>
+                        <li>Tianguis donde compras un pedal de guitarra, ramen instant&aacute;neo y quiz&aacute; una maldici&oacute;n leve.</li>
+                    </ul>
+                </article>
+
+                <button class="info-image-card info-wide-card" type="button" data-full="assets/images/cheatguys-info/info-garage-show.webp" data-title="GARAGE_SHOW_BUILD_01.WEBP">
+                    <img src="assets/images/cheatguys-info/mobile/info-garage-show.webp" alt="Presentacion caotica de CheatGuys!" loading="lazy" decoding="async">
+                    <span class="info-img-tag">GARAGE_SHOW_BUILD_01.WEBP</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="info-section info-final cg-info-reveal">
+            <button class="info-image-card info-final-img" type="button" data-full="assets/images/cheatguys-info/info-akane-chibi.webp" data-title="AKANE_INTERNAL_HUD.PNG">
+                <img src="assets/images/cheatguys-info/mobile/info-akane-chibi.webp" alt="Akane estilo chibi" loading="lazy" decoding="async">
+                <span class="info-img-tag">AKANE_INTERNAL_HUD.PNG</span>
+            </button>
+
+            <article class="info-final-copy">
+                <h2>No es otro anime de banda.</h2>
+                <p>
+                    Es una historia ruidosa, colorida y emocionalmente honesta sobre adolescentes raros tratando
+                    de funcionar juntos.
+                </p>
+                <p>
+                    Nadie es perfecto, nadie sabe muy bien qu&eacute; est&aacute; haciendo y aun as&iacute; todos siguen tocando.
+                </p>
+                <strong>0 PERFECCI&Oacute;N. +100 EMOCI&Oacute;N.</strong>
+            </article>
+        </section>
+
+        <section id="laptop-garage" class="laptop-garage cg-info-reveal" aria-labelledby="laptopGarageTitle" data-mode="desktop">
+            <div class="laptop-copy">
+                <p class="info-system-line">InfinityOS // DIRECTORY_06A: AKANEBOOK_REMOTE_CHAT</p>
+                <h2 id="laptopGarageTitle">Akanebook</h2>
+                <p>Abre Akanebook y conversa directo desde el garaje de Neo Teno.</p>
+            </div>
+
+            <div class="pixel-laptop" aria-label="Akanebook interactiva">
+                <div class="pixel-laptop-lid">
+                    <div class="laptop-sticker sticker-bat">CG!</div>
+                    <div class="laptop-sticker sticker-star">ONI</div>
+                    <div class="laptop-camera" aria-hidden="true"></div>
+
+                    <div class="laptop-screen">
+                        <button id="laptopMobileWindowClose" class="laptop-mobile-window-close" type="button" aria-label="Cerrar ventana">[X]</button>
+                        <div id="laptopDesktop" class="laptop-desktop" aria-label="Escritorio de personajes">
+                            <div class="laptop-topbar">
+                                <span>ESCRITORIO</span>
+                                <span>InfinityOS</span>
+                            </div>
+
+                            <div class="laptop-icons-grid">
+                                <button class="laptop-app-icon app-akane" type="button" data-laptop-character="akane">
+                                    <img src="assets/icons/icon-akane.webp" alt="Akane" loading="lazy" decoding="async">
+                                    <span>Akane</span>
+                                </button>
+                                <button class="laptop-app-icon app-rika" type="button" data-laptop-character="rika">
+                                    <img src="assets/icons/icon-rika.webp" alt="Rika" loading="lazy" decoding="async">
+                                    <span>Rika</span>
+                                </button>
+                                <button class="laptop-app-icon app-momo" type="button" data-laptop-character="momo">
+                                    <img src="assets/icons/icon-momo.webp" alt="Momo" loading="lazy" decoding="async">
+                                    <span>Momo</span>
+                                </button>
+                                <button class="laptop-app-icon app-jun" type="button" data-laptop-character="jun">
+                                    <img src="assets/icons/icon-jun.webp" alt="Jun" loading="lazy" decoding="async">
+                                    <span>Jun</span>
+                                </button>
+                            </div>
+
+                            <div class="laptop-desktop-window laptop-akane-panel" aria-hidden="true">
+                                <div class="laptop-window-titlebar">
+                                    <span>AKANEBOOK_NOTES.TXT</span>
+                                    <span>_ [] X</span>
+                                </div>
+                                <div class="laptop-window-body">
+                                    <p>quest: hacer amigos sin activar panico.</p>
+                                    <p>hud_social: opciones de dialogo cargando.</p>
+                                    <p>kurotama_guard: activo sobre el amplificador.</p>
+                                </div>
+                            </div>
+
+                            <div class="laptop-desktop-window laptop-status-panel" aria-hidden="true">
+                                <div class="laptop-window-titlebar">
+                                    <span>InfinityOS</span>
+                                    <span>!</span>
+                                </div>
+                                <div class="laptop-window-body">
+                                    <p>estamina social: 12%</p>
+                                    <p>modo vocalista: no autorizado</p>
+                                </div>
+                            </div>
+
+                            <div class="laptop-desktop-widget laptop-sticky-note" aria-hidden="true">
+                                <strong>NO OLVIDAR</strong>
+                                <span>Rika cubre multitudes; Momo trae calma; Jun guarda snacks.</span>
+                            </div>
+
+                            <div class="laptop-desktop-widget laptop-mini-eq" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+
+                        <div id="laptopChatRoom" class="laptop-chat-room" aria-label="Chat room de CheatGuys" hidden>
+                            <div class="laptop-chat-header">
+                                <div class="chat-character-chip">
+                                    <img id="chatCharacterAvatar" src="assets/icons/icon-akane.webp" alt="Akane" loading="lazy" decoding="async">
+                                    <div>
+                                        <strong id="chatCharacterName">Akane Hoshizora</strong>
+                                        <span id="chatCharacterStatus">ONLINE // CHAT-ROOM</span>
+                                    </div>
+                                </div>
+                                <button id="laptopCloseChat" class="laptop-close-app" type="button">Cerrar app</button>
+                            </div>
+
+                            <div id="chat-history" class="chat-history" aria-live="polite"></div>
+
+                            <form id="laptopChatForm" class="laptop-chat-form">
+                                <input type="text" id="chat-input" autocomplete="off" placeholder="Escribe un mensaje..." aria-label="Mensaje para el personaje">
+                                <button id="chatSendButton" type="submit">Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="pixel-laptop-base">
+                    <div class="laptop-keyboard" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="laptop-trackpad" aria-hidden="true"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="gallery-footer info-footer">
+            <img loading="lazy" src="assets/branding/mobile/logo-studio-blanco.webp" alt="Infinity Brothers Logo" class="gallery-footer-logo" decoding="async">
+            <p>CheatGuys! is a series owned by Infinity Brothers Studios TM. All artwork, descriptions, documents, characters, music, and story are the property of the studio and are protected by copyright.</p>
+            <p>Interactive components (including character chat simulations) utilize experimental AI for entertainment and narrative purposes only. Leaderboard submissions are stored locally for gameplay experience.</p>
+            <p>CheatGuys! &copy; 2026 Infinity Brothers Studios TM. All rights reserved</p>
+        </footer>
+    </main>
+
+    <div id="infoImageModal" class="info-image-modal" onclick="cerrarInfoImageModal(event)" aria-hidden="true">
+        <div class="info-image-modal-box" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Imagen de CheatGuys">
+            <div class="info-image-modal-header">
+                <h2 id="infoImageModalTitle">IMAGE_VIEWER <span class="cursor-blink">█</span></h2>
+                <button class="info-modal-close" onclick="cerrarInfoImageModal()">[X]</button>
+            </div>
+            <div class="info-image-modal-body">
+                <img id="infoImageModalImg" alt="" class="info-image-modal-img">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cg-config.js?v=5205dd30f279"></script>
+    <script src="js/cg-diagnostics.js?v=cb06ac23d491"></script>
+    <script src="js/audio-global.js?v=2a0805216008"></script>
+    <script src="js/ui-global.js?v=11fa6703ae2b"></script>
+    <script src="js/i18n.js?v=f50d48889fd7"></script>
+    <script src="js/que-es-cheatguys.js?v=0aad342f0238"></script>
+    <script src="js/laptop-logic.js?v=4c7d246a7e6b"></script>
+    <script>
+        (() => {
+            const sys = "color:#ff3df2;background:#16001f;border:1px solid #ff3df2;padding:2px 6px;font-family:monospace;text-shadow:0 0 8px #ff3df2;";
+            const mitsuki = "color:#f8f2ff;font-weight:700;";
+
+            console.groupCollapsed("%cLORE_FILE_LOADED // CHEATGUYS_ORIGIN", sys);
+            console.log("Una banda no se forma cuando todos estan listos.");
+            console.log("Se forma cuando alguien con panico social abre el menu equivocado y presiona A.");
+            console.log("%cMITSUKI:", mitsuki, "No era mi plan educar adolescentes ni consolas, pero aqui estamos.");
+            console.groupEnd();
+        })();
+    </script>
+</body>
+</html>

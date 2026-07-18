@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="google" content="notranslate">
+    <title>CheatGuys! - Multiplayer Lobby</title>
+    <link rel="icon" type="image/png" href="assets/branding/favicon.webp">
+    <link rel="stylesheet" href="css/fonts.css?v=ea679c4af9d0">
+    <link rel="stylesheet" href="css/style.css?v=86ce88e28777">
+    <link rel="stylesheet" href="css/start-intro-novel.css?v=e442bc4ce468">
+    <link rel="stylesheet" href="css/galeria.css?v=884bf782506f">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cheatguys-cloudflare.pages.dev/">
+    <meta property="og:title" content="CheatGuys! - Multiplayer Lobby">
+    <meta property="og:description" content="Lobby oficial de CheatGuys! por Infinity Brothers Studios.">
+    <meta property="og:image" content="https://cheatguys-cloudflare.pages.dev/assets/share/qr-share.webp">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://cheatguys-cloudflare.pages.dev/">
+    <meta name="twitter:title" content="CheatGuys! - Multiplayer Lobby">
+    <meta name="twitter:description" content="Lobby oficial de CheatGuys! por Infinity Brothers Studios.">
+    <meta name="twitter:image" content="https://cheatguys-cloudflare.pages.dev/assets/share/qr-share.webp">
+</head>
+<body class="notranslate">
+
+    <!-- 
+    ==================================================================================
+    [ SYSTEM MESSAGE / LOG: AKANE_HOSHIZORA ]
+    O-oye... ¿qué haces inspeccionando el código fuente? ( >_> )
+    Me tomó demasiadas madrugadas y bebidas energéticas programar este lobby...
+    Por favor, no rompas nada. ¡Y no juzgues si mi código parece un espagueti!
+    Cierra las DevTools antes de que me dé un ataque de ansiedad. ¡Gracias!
+    ==================================================================================
+    -->
+
+    <!-- Audios del Sistema -->
+    <audio id="bgMusicPage"       src="assets/audio/lobby.mp3" loop preload="none"></audio>
+    <audio id="bgMusicSecret"     src="assets/audio/secret_archives.mp3" loop preload="none"></audio>
+    <audio id="bgMusicChar"       src="assets/audio/fichas_personajes.mp3" loop preload="none"></audio>
+    <audio id="bgMusicStart"      src="assets/audio/later/pantalla_inicio.mp3" loop preload="none"></audio>
+
+    <!-- =========================================
+         BARRA LATERAL COLAPSABLE
+         ========================================= -->
+    <button id="sidebarToggle" class="cg-sidebar-toggle" onclick="toggleSidebar()" aria-label="Abrir/cerrar menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav id="sidebarNav" class="cg-sidebar" aria-label="Menu principal">
+        <div class="cg-sidebar-header">
+            <img src="assets/branding/mobile/logo-solo.webp" alt="CheatGuys!" class="cg-sidebar-brand-logo">
+        </div>
+
+        <a href="index.html" class="cg-sidebar-link active">
+            <span class="cg-sidebar-icon cg-icon-home" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Inicio</span>
+        </a>
+        <a href="quienes-somos.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-about" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">&iquest;Qui&eacute;nes somos?</span>
+        </a>
+        <a href="que-es-cheatguys.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-cheatguys" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">&iquest;Qu&eacute; es CheatGuys!?</span>
+        </a>
+        <a href="minijuego.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-minigame" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Minijuegos</span>
+        </a>
+        <a href="galeria.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-gallery" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Galer&iacute;a</span>
+        </a>
+
+        <a href="biblia-produccion.html" class="cg-sidebar-link">
+            <span class="cg-sidebar-icon cg-icon-bible" aria-hidden="true"></span>
+            <span class="cg-sidebar-label">Biblia de Producci&oacute;n</span>
+        </a>
+
+        <div class="cg-sidebar-audio" aria-label="Control de musica">
+            <button id="musicToggleBtn" class="cg-audio-toggle" title="Musica ON/OFF" onclick="toggleMusic()" aria-label="Activar o desactivar musica" aria-pressed="true">&#9835;</button>
+            <label class="cg-audio-slider-label" for="pageVolumeSlider">VOL</label>
+            <input type="range" id="pageVolumeSlider" min="0" max="1" step="0.01" value="0.4" title="Control de Volumen" aria-label="Volumen de musica">
+        </div>
+    </nav>
+
+    <!-- =========================================
+         PANTALLA DE CARGA GLOBAL
+         ========================================= -->
+    <div id="startWindow" class="start-window" aria-label="Pantalla de inicio CheatGuys">
+        <div class="start-crt-flash" aria-hidden="true"></div>
+        <section class="start-boot-panel" aria-hidden="true">
+            <div class="start-boot-window">
+                <div class="start-os-titlebar">
+                    <span>InfinityOS_BOOT.SYS</span>
+                    <span>MEM 640K</span>
+                </div>
+                <img src="assets/branding/mobile/logo-studio-blanco.webp" alt="" class="start-studio-logo" decoding="async">
+                <div class="start-os-label">InfinityOS</div>
+                <div class="start-boot-log">
+                    <span>CHECKING CREATIVE_CORE...</span>
+                    <span>LOADING GARAGE_DRIVERS...</span>
+                    <span>SYNCING AKANE_INPUT...</span>
+                </div>
+                <div class="start-boot-progress"><span></span></div>
+            </div>
+        </section>
+        <section class="start-title-panel" aria-label="Inicio del videojuego">
+            <video class="start-bg-video" src="assets/start-window/loop-fondo-clean.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/branding/mobile/logo-cheatguys.webp"></video>
+            <div class="start-title-content">
+                <div class="start-window-titlebar" aria-hidden="true">
+                    <span>CHEATGUYS_START.EXE</span>
+                    <span class="start-window-controls"><i></i><i></i><i></i></span>
+                </div>
+                <div class="start-desktop-widgets" aria-hidden="true">
+                    <div class="start-widget start-widget-log">
+                        <span>BOOT_LOG</span>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                    </div>
+                    <div class="start-widget start-widget-signal">
+                        <span>SIGNAL</span>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                    </div>
+                </div>
+                <div class="start-player-row">
+                    <span>PLAYER ONE</span>
+                    <span>READY</span>
+                </div>
+                <img src="assets/branding/mobile/logo-cheatguys.webp" alt="CheatGuys!" class="start-series-logo" decoding="async">
+                <div class="start-menu-card">
+                    <button id="pressStartBtn" class="press-start-btn" type="button">PRESS START</button>
+                    <div class="start-menu-meta">INSERT COIN // BUILD 2026</div>
+                </div>
+                <div class="start-runner-track" aria-hidden="true">
+                    <div class="start-akane-runner"></div>
+                </div>
+                <div class="start-console-footer" aria-hidden="true">
+                    <span>CPU: CREATIVE_CORE</span>
+                    <span>INPUT: KEYBOARD / TOUCH</span>
+                    <span>STATUS: WAITING</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- =========================================
+         MINI NOVELA VISUAL DE PRESENTACION
+         Reutiliza la estructura visual de Mitsuki sin compartir su estado.
+         ========================================= -->
+    <div id="startIntroOverlay" class="start-intro-overlay mitsuki-overlay" role="dialog" aria-modal="true" aria-labelledby="startIntroTitle" aria-describedby="startIntroText" aria-hidden="true">
+        <div class="start-intro-vn-box mitsuki-vn-box">
+            <div id="startIntroScreen" class="start-intro-vn-screen mitsuki-vn-screen" tabindex="-1">
+                <header class="start-intro-header mitsuki-vn-header">
+                    <span id="startIntroTitle">InfinityOS // STARTUP_STORY</span>
+                    <span id="startIntroCounter">TAB 01/08</span>
+                    <button id="startIntroSkipBtn" class="start-intro-skip" type="button" aria-label="Omitir la introduccion y continuar al lobby">[ OMITIR_INTRO.EXE ]</button>
+                </header>
+
+                <div id="startIntroScene" class="start-intro-scene">
+                    <div id="startIntroVisual" class="start-intro-visual mitsuki-illustration-container" aria-live="off">
+                        <div id="startIntroSprites" class="start-intro-sprites" aria-hidden="true"></div>
+                        <div id="startIntroEffects" class="start-intro-effects" aria-hidden="true"></div>
+                    </div>
+
+                    <div id="startIntroDialogueBox" class="start-intro-dialogue mitsuki-dialogue-box" role="button" tabindex="0" aria-label="Continuar dialogo">
+                        <img id="startIntroPortrait" class="start-intro-portrait mitsuki-portrait glitch-effect" src="assets/icons/icon-akane.webp" alt="Retrato de Akane" decoding="async">
+                        <div class="mitsuki-dialogue-content">
+                            <span id="startIntroSpeaker" class="start-intro-speaker mitsuki-speaker">AKANE</span>
+                            <p id="startIntroText" class="start-intro-text mitsuki-text" aria-live="polite"></p>
+                        </div>
+                    </div>
+
+                    <button id="startIntroContinueBtn" class="start-intro-continue mitsuki-continue-btn" type="button" aria-label="Continuar a la siguiente viñeta">[ CONTINUAR ]</button>
+                </div>
+
+                <section id="startIntroBsod" class="start-intro-bsod" aria-live="assertive" hidden></section>
+            </div>
+        </div>
+        <div class="start-intro-blackout" aria-hidden="true"></div>
+    </div>
+
+    <div id="globalLoader" class="loading-overlay">
+        <h2 class="loading-text">SYSTEM_LOADING <span class="cursor-blink">█</span></h2>
+        <div class="loading-icons-wrapper">
+            <!-- Iconos de carga en cascada y sin bordes de recuadro -->
+            <div class="load-dot ld-akane"></div>
+            <div class="load-dot ld-rika"></div>
+            <div class="load-dot ld-momo"></div>
+            <div class="load-dot ld-jun"></div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         LOBBY PRINCIPAL (CON CASCADA DE ANIMACIONES)
+         ========================================= -->
+    <div class="profile-container animate-in delay-1">
+        <div class="logos-wrapper">
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=JWIxkPOp9xFteFNp" target="_blank" rel="noopener noreferrer" class="easter-egg-link">
+                <img src="assets/branding/mobile/logo-cheatguys.webp" alt="CheatGuys Official Logo" class="main-logo" decoding="async" fetchpriority="high" onerror="this.onerror=null; this.src='https://placehold.co/340x120/1a1a1a/8A2BE2?text=CHEATGUYS!';">
+            </a>
+        </div>
+        <p class="subtitle">Infinity Brothers Studio</p>
+        <div class="akane-os-statusbar animate-in delay-2" aria-hidden="true">
+            <span>InfinityOS // GARAGE_SESSION</span>
+            <span>BAT: 03%</span>
+            <span>WIFI: NEON_TENO</span>
+        </div>
+
+        <div class="home-hero-split">
+            <button class="bottom-art-container animate-in delay-2" type="button" data-cg-secret-trigger aria-label="Revisar poster secreto de CheatGuys">
+                <img loading="eager" fetchpriority="high" src="assets/characters/mobile/lineup-team.webp" alt="CheatGuys Team" class="bottom-art" decoding="async">
+                <span class="bottom-art-tag">SECRET_GARAGE_ARCHIVES.WEBP</span>
+            </button>
+
+            <section class="intro-hook animate-in delay-3" aria-label="Mensaje de bienvenida">
+                <h1>ALERTA_DE_INTRUSO // NÚCLEO_CREATIVO <span class="cursor-blink">█</span></h1>
+                <p>Entraste al garaje operativo de CheatGuys!: 0 perfección, +100 emoción. Elige personaje para abrir sus fichas, revisa stickers, música y archivos prohibidos, o toca el póster si quieres que Akane pierda tres puntos de estabilidad social.</p>
+            </section>
+
+            <div class="akane-chaos-notes" aria-hidden="true">
+                <span class="akane-note note-purple">AKANE_HUD_QUEST</span>
+                <span class="akane-note note-pink">SINA_APPROVED_SOFTNESS</span>
+                <span class="akane-note note-orange">RIKA_CROWD_SHIELD</span>
+                <span class="akane-note note-blue">JUN_SNACK_BACKUP</span>
+            </div>
+        </div>
+
+        <section class="character-arcade-frame animate-in delay-4" aria-label="Seleccion de personaje">
+            <div class="arcade-frame-label">SELECCIONA_TU_PERSONAJE.EXE</div>
+            <div class="character-select">
+                <button class="char-btn akane" data-cg-character="akane" title="Akane Hoshizora" aria-label="Abrir ficha de Akane Hoshizora"></button>
+                <button class="char-btn rika" data-cg-character="rika" title="Rika Tanaka" aria-label="Abrir ficha de Rika Tanaka"></button>
+                <button class="char-btn momo" data-cg-character="momo" title="Momo Fujiwara" aria-label="Abrir ficha de Momo Fujiwara"></button>
+                <button class="char-btn jun" data-cg-character="jun" title="Junpei Sakamoto" aria-label="Abrir ficha de Junpei Sakamoto"></button>
+            </div>
+        </section>
+
+        <nav class="quick-scroll-nav animate-in delay-5" aria-label="Accesos rapidos">
+            <a href="#system-files" class="quick-scroll-btn">[ FILES ]</a>
+            <a href="#inventory" class="quick-scroll-btn">[ INVENTORY ]</a>
+            <a href="#merchant" class="quick-scroll-btn">[ SHOP ]</a>
+            <a href="#sound-test" class="quick-scroll-btn">[ SOUND ]</a>
+        </nav>
+
+        <div class="akane-terminal-card animate-in delay-6" aria-hidden="true">
+            <div class="akane-terminal-title">CRASH_NOTES.TXT</div>
+            <p>00:13 // Akane convirtio hacer amigos en mision principal.</p>
+            <p>00:17 // Rika activo escudo anti-multitudes.</p>
+            <p>00:21 // Momo y Sina aprobaron el nivel de ternura.</p>
+        </div>
+    </div>
+
+    <div class="links-container">
+        <div class="links-note links-note-top animate-in delay-1" role="note" aria-label="Nota de sistema de Akane">
+            <span>GARAGE_SAFE_ZONE</span>
+            <strong>El garaje dejó de ser escondite: ahora es cuartel, ensayo y refugio de banda.</strong>
+        </div>
+
+        <div id="system-files" class="menu-box box-main animate-in delay-2">
+            <div class="section-title">InfinityOS // DIRECTORY_01: SYSTEM_FILES <span class="cursor-blink">█</span></div>
+            <a href="biblia-produccion.html" class="link-btn btn-pitch"><img loading="lazy" src="assets/social/pitch.webp" class="icon-img" alt="Pitch" decoding="async"><div class="text-container"><span class="btn-title">Official Pitch Bible</span><span class="btn-subtitle">READ_PRODUCTION_DECK.EXE</span></div></a>
+            <a href="https://x.com/infinitybrooo" target="_blank" rel="noopener noreferrer" class="link-btn btn-x"><img loading="lazy" src="assets/social/Xnews.webp" class="icon-img" alt="X" decoding="async"><div class="text-container"><span class="btn-title">Infinity Brothers on X</span><span class="btn-subtitle">FOLLOW_STUDIO_UPDATES</span></div></a>
+            <a href="https://www.tiktok.com/@infinitybrooo" target="_blank" rel="noopener noreferrer" class="link-btn btn-tiktok"><img loading="lazy" src="assets/social/tik-tok.webp" class="icon-img" alt="TikTok" decoding="async"><div class="text-container"><span class="btn-title">TikTok Animatics</span><span class="btn-subtitle">BEHIND_THE_SCENES_VIDEO</span></div></a>
+        </div>
+
+        <div id="inventory" class="menu-box box-stickers animate-in delay-3">
+            <div class="section-title">InfinityOS // DIRECTORY_02: INVENTORY_STICKERS <span class="cursor-blink">█</span></div>
+            <a href="https://drive.google.com/file/d/1yZCsVabFGpf_UgIVVHxMJMJ6r_d2aSYD/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-btn btn-whatsapp"><img loading="lazy" src="assets/social/whastapp-stickers.webp" class="icon-img" alt="WhatsApp" decoding="async"><div class="text-container"><span class="btn-title">WhatsApp Sticker Pack</span><span class="btn-subtitle">EQUIP: AKANE'S ANXIETY</span></div></a>
+            <a href="#" class="link-btn btn-discord" onclick="event.preventDefault(); showToast('SYSTEM: Discord Emotes — COMING SOON...')"><img loading="lazy" src="assets/social/Discord-icons.webp" class="icon-img" alt="Discord" decoding="async"><div class="text-container"><span class="btn-title">Discord Emotes</span><span class="btn-subtitle">COMING_SOON.EXE</span></div></a>
+        </div>
+
+        <div id="merchant" class="menu-box box-support animate-in delay-4">
+            <div class="section-title">InfinityOS // DIRECTORY_03: MERCHANT_SHOP <span class="cursor-blink">█</span></div>
+            <a href="#" class="link-btn btn-patreon"><span class="icon">🧡</span><div class="text-container"><span class="btn-title">Patreon Guild</span><span class="btn-subtitle">COMING_SOON.EXE</span></div></a>
+            <a href="https://buymeacoffee.com/infinitybrooo" target="_blank" rel="noopener noreferrer" class="link-btn btn-kofi"><img loading="lazy" src="assets/social/Buy-Coffee.webp" class="icon-img" alt="Coffee" decoding="async"><div class="text-container"><span class="btn-title">Mitsuki's Coffee</span><span class="btn-subtitle">BUY_HER_A_COFFEE_FOR_THE_TEACHER</span></div></a>
+            <a href="https://www.paypal.me/infinitybrooo" target="_blank" rel="noopener noreferrer" class="link-btn btn-paypal"><img loading="lazy" src="assets/social/Paypal.webp" class="icon-img" alt="PayPal" decoding="async"><div class="text-container"><span class="btn-title">PayPal Donations</span><span class="btn-subtitle">SUPPORT_INDIE_ANIMATION</span></div></a>
+        </div>
+
+        <div class="links-note links-note-mid animate-in delay-4" role="note" aria-label="Nota de mantenimiento del lobby">
+            <span>RIKA_VOLUME_RULE</span>
+            <strong>Si Rika sube el volumen, Jun baja la energía y Momo decora el desastre.</strong>
+        </div>
+
+        <div id="sound-test" class="menu-box box-music animate-in delay-5">
+            <div class="section-title">InfinityOS // DIRECTORY_04: SOUND_TEST_MENU <span class="cursor-blink">█</span></div>
+            <div class="music-card card-akane">
+                <div class="card-header"><img loading="lazy" src="assets/characters/posters/thumbs/poster-akane.webp" class="cover-art" alt="Playlist de Akane" decoding="async"><div class="text-container"><span class="btn-title">Akane: Noise I Can't Say Out Loud</span></div></div>
+                <div class="platform-links"><a href="https://music.youtube.com/playlist?list=PLjimL7gdf7217m1FLAFeRCeqellB_wLlE&si=Ih13VcRduZ3dAQvz" target="_blank" rel="noopener noreferrer" class="plat-btn yt-btn">▶ YouTube</a><a href="https://open.spotify.com/playlist/7eayTb4jbfExCeT8r8rGAr?si=wWNnrpIdSVuDp0lz3m-6Dg&pi=1-2rYg0BSaicf" target="_blank" rel="noopener noreferrer" class="plat-btn sp-btn">🎧 Spotify</a></div>
+                <button type="button" class="btn-preview-mixer" data-cg-mixer="akane" aria-label="Reproducir preview aleatorio de Akane">[ PREVIEW ]</button>
+            </div>
+            <div class="music-card card-rika">
+                <div class="card-header"><img loading="lazy" src="assets/characters/posters/thumbs/poster-rika.webp" class="cover-art" alt="Playlist de Rika" decoding="async"><div class="text-container"><span class="btn-title">Rika: Volume First, Consequences Later</span></div></div>
+                <div class="platform-links"><a href="https://music.youtube.com/playlist?list=PLjimL7gdf721v4C-hyzBO0tudRQG4mgWt&si=VgP4OuLfqwMg_Mqi" target="_blank" rel="noopener noreferrer" class="plat-btn yt-btn">▶ YouTube</a><a href="https://open.spotify.com/playlist/5xOhRBBW6qfcxgvpGZLjaI?si=Ngwlrq4eRmybcuSlObTiEA" target="_blank" rel="noopener noreferrer" class="plat-btn sp-btn">🎧 Spotify</a></div>
+                <button type="button" class="btn-preview-mixer" data-cg-mixer="rika" aria-label="Reproducir preview aleatorio de Rika">[ PREVIEW ]</button>
+            </div>
+            <div class="music-card card-momo">
+                <div class="card-header"><img loading="lazy" src="assets/characters/posters/thumbs/poster-momo.webp" class="cover-art" alt="Playlist de Momo" decoding="async"><div class="text-container"><span class="btn-title">Momo: Pink City Lights</span></div></div>
+                <div class="platform-links"><a href="https://music.youtube.com/playlist?list=PLjimL7gdf720e-jVoBcLJ7HCw3Mzj6Wbx&si=HuNmgHbie30p18Jv" target="_blank" rel="noopener noreferrer" class="plat-btn yt-btn">▶ YouTube</a><a href="https://open.spotify.com/playlist/5ra2tvSpzrYs8f96ArFqg3?si=93s0Nn_jSNih3-bJSZPI4A&pi=vun3-nXiT_Kul" target="_blank" rel="noopener noreferrer" class="plat-btn sp-btn">🎧 Spotify</a></div>
+                <button type="button" class="btn-preview-mixer" data-cg-mixer="momo" aria-label="Reproducir preview aleatorio de Momo">[ PREVIEW ]</button>
+            </div>
+            <div class="music-card card-jun">
+                <div class="card-header"><img loading="lazy" src="assets/characters/posters/thumbs/poster-jun.webp" class="cover-art" alt="Playlist de Jun" decoding="async"><div class="text-container"><span class="btn-title">Jun: Sleepy Groove, Sharp Timing</span></div></div>
+                <div class="platform-links"><a href="https://music.youtube.com/playlist?list=PLjimL7gdf720rFPx-tIPhw2SLfLLktTIV&si=bfoLuYhmp6rHxh7t" target="_blank" rel="noopener noreferrer" class="plat-btn yt-btn">▶ YouTube</a><a href="https://open.spotify.com/playlist/5I3zRnkbCrhdFzEYsNR2aV?si=UNxF8a1aTIWck4FvjEPr2g&pi=ONRT_DSNQCS4A" target="_blank" rel="noopener noreferrer" class="plat-btn sp-btn">🎧 Spotify</a></div>
+                <button type="button" class="btn-preview-mixer" data-cg-mixer="jun" aria-label="Reproducir preview aleatorio de Jun">[ PREVIEW ]</button>
+            </div>
+        </div>
+
+        <div class="menu-box box-contact animate-in delay-6">
+            <div class="section-title">InfinityOS // DIRECTORY_05: COMMUNICATIONS <span class="cursor-blink">█</span></div>
+            <a href="mailto:infinitybrooothers@outlook.com" class="link-btn btn-mail"><img loading="lazy" src="assets/icons/mail-icon.png" class="icon-img" alt="Mail" decoding="async"><div class="text-container"><span class="btn-title">Send System Mail</span><span class="btn-subtitle">infinitybrooothers@outlook.com</span></div></a>
+            <a href="https://wa.me/qr/U2HZ5TMRR4I4G1" target="_blank" rel="noopener noreferrer" class="link-btn btn-whatsapp"><img loading="lazy" src="assets/social/whatsapp.webp" class="icon-img" alt="WhatsApp" decoding="async"><div class="text-container"><span class="btn-title">WhatsApp Business</span><span class="btn-subtitle">DIRECT_CHAT_WITH_STUDIO</span></div></a>
+        </div>
+
+        <div class="links-note links-note-bottom animate-in delay-6" role="note" aria-label="Nota secreta del footer">
+            <span>MITSUKI_MAINTENANCE_LOG</span>
+            <strong>Mitsuki archivó el caos, sirvió café y fingió que todo estaba bajo control.</strong>
+        </div>
+    </div>
+
+    <div class="x-feed-mobile-launch animate-in delay-6">
+        <button type="button" class="btn-preview-mixer x-feed-launch-btn" data-cg-x-feed-open aria-label="Ver publicaciones recientes de X">[ OPEN_X_FEED ]</button>
+    </div>
+
+    <section id="mixerWindow" class="mixer-window" role="dialog" aria-modal="false" aria-labelledby="mixerWindowTitle" aria-hidden="true" hidden>
+        <header class="mixer-titlebar">
+            <span id="mixerWindowTitle">InfinityOS // GARAGE_MIXER</span>
+            <button type="button" class="mixer-close" data-cg-mixer-close aria-label="Cerrar mixer y detener preview">[X]</button>
+        </header>
+        <div class="mixer-content">
+            <div class="mixer-cover-frame">
+                <img id="mixerCoverArt" alt="Portada del preview seleccionado" decoding="async" referrerpolicy="no-referrer">
+                <span class="mixer-cover-placeholder" aria-hidden="true">ARTWORK<br>BUFFER</span>
+            </div>
+            <div class="mixer-readout">
+                <span class="mixer-channel-label">NOW_PREVIEWING // 30_SEC</span>
+                <strong id="mixerTrackTitle">SELECCIONANDO...</strong>
+                <div id="mixerVisualizer" class="mixer-eq mixer-visualizer" aria-hidden="true">
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                    <span class="mixer-eq-line"></span>
+                </div>
+                <span id="mixerStatus" class="mixer-status" aria-live="polite">WAITING_FOR_INPUT</span>
+                <a id="mixerStoreLink" class="mixer-store-link" href="#" target="_blank" rel="noopener noreferrer" hidden>[ OPEN_IN_ITUNES ]</a>
+            </div>
+        </div>
+        <footer class="mixer-footer">PREVIEW PROVIDED COURTESY OF ITUNES // STREAM_ONLY</footer>
+    </section>
+
+    <aside id="xFeedWindow" class="x-feed-window" role="dialog" aria-modal="false" aria-labelledby="xFeedWindowTitle" aria-hidden="true">
+        <header class="x-feed-titlebar">
+            <span id="xFeedWindowTitle">InfinityOS // X_FEED</span>
+            <button type="button" class="mixer-close x-feed-close" data-cg-x-feed-close aria-label="Cerrar publicaciones de X">[X]</button>
+        </header>
+        <div class="x-feed-content" data-cg-x-feed-container>
+            <span class="mixer-channel-label">LIVE_TRANSMISSION // @INFINITYBROOO</span>
+            <div class="x-feed-frame is-loading">
+                <div class="x-feed-posts" data-cg-x-feed-posts aria-live="polite"></div>
+                <div class="x-feed-fallback">
+                    <strong>SIGNAL_OFFLINE</strong>
+                    <span>No se pudo cargar el feed manual.</span>
+                    <a href="https://x.com/infinitybrooo" target="_blank" rel="noopener noreferrer">[ OPEN_X_PROFILE ]</a>
+                </div>
+            </div>
+            <a class="mixer-store-link x-feed-direct" href="https://x.com/infinitybrooo" target="_blank" rel="noopener noreferrer">[ OPEN_X_PROFILE ]</a>
+        </div>
+        <footer class="mixer-footer" data-cg-x-feed-updated>X/TWITTER SIGNAL // MANUAL_SYNC</footer>
+    </aside>
+
+    <aside id="cookieNotice" class="cookie-notice-window" role="dialog" aria-modal="false" aria-labelledby="cookieNoticeTitle" aria-describedby="cookieNoticeText" aria-hidden="true" hidden tabindex="-1">
+        <header class="cookie-notice-header">
+            <h2 id="cookieNoticeTitle" class="modal-title">AVISO_DE_COOKIES // SECURITY_LAYER <span class="cursor-blink">█</span></h2>
+            <button class="close-btn cookie-notice-close" type="button" data-cg-cookie-close aria-label="Cerrar aviso de cookies">[X]</button>
+        </header>
+        <div class="cookie-notice-body">
+            <div class="cookie-notice-img-frame">
+                <img src="assets/branding/cookies/rika_cookie.png" alt="Rika comiendo una galleta" class="cookie-notice-img" loading="lazy" decoding="async">
+            </div>
+            <div class="cookie-notice-copy">
+                <p id="cookieNoticeText">Este sitio web utiliza cookies técnicas para garantizar la mejor experiencia de usuario en el búnker. Al continuar navegando, asumes que... Espera, ¿sigues leyendo esto? Está claro que no podemos usar cookies, ¿tú crees que vamos a tener dinero para servidores que manejen información en tiempo real? Claramente no. Pero tranquilo, para que no sientas que desperdiciaste el tiempo leyendo esto, aprieta el botón para obtener un póster exclusivo.</p>
+                <a class="cookie-notice-gift" href="assets/branding/cookies/toma_tu_regalo.png" download="CheatGuys_poster_firmado.png" data-cg-cookie-download aria-label="Descargar póster firmado">[ POSTER_FIRMADO.PNG ]</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- EL BOTÓN PROHIBIDO DE MITSUKI -->
+    <div class="mitsuki-trigger-container" onclick="iniciarSecuenciaMitsuki()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); iniciarSecuenciaMitsuki();}">
+        <img loading="lazy" src="assets/mitsuki/mobile/btn-no-presionar.webp" alt="No presionar" class="mitsuki-trigger-btn" decoding="async">
+        <span class="mitsuki-trigger-label">NO PRESIONAR</span>
+    </div>
+
+    <div class="footer animate-in delay-7">
+        <img loading="lazy" src="assets/branding/mobile/logo-studio-blanco.webp" alt="Infinity Brothers Logo" class="footer-logo" decoding="async">
+        <p>CheatGuys! is a series owned by Infinity Brothers Studios TM. All artwork, descriptions, documents, characters, music, and story are the property of the studio and are protected by copyright.</p>
+        <p>Interactive components (including character chat simulations) utilize experimental AI for entertainment and narrative purposes only. Leaderboard submissions are stored locally for gameplay experience.</p>
+        <p>CheatGuys! &copy; 2026 Infinity Brothers Studios TM. All rights reserved</p>
+        <button id="footerIntroResetBtn" class="footer-secret-reset" type="button" aria-label="Reiniciar secretamente la secuencia de introduccion">[ RECOVERY_NODE_0xCG ]</button>
+    </div>
+
+    <div id="footerIntroConfirm" class="start-intro-confirm" role="dialog" aria-modal="true" aria-labelledby="footerIntroConfirmTitle" aria-describedby="footerIntroConfirmText" aria-hidden="true" hidden>
+        <div class="start-intro-confirm-box">
+            <div class="start-intro-confirm-titlebar">
+                <span id="footerIntroConfirmTitle">MEMORY_RESET.EXE</span>
+                <button id="footerIntroConfirmClose" class="start-intro-confirm-x" type="button" aria-label="Cancelar reinicio">[X]</button>
+            </div>
+            <p id="footerIntroConfirmText">¿Estas seguro? Algo puede explotar si lo haces... Luego no me vengas a llorar.</p>
+            <div class="start-intro-confirm-actions">
+                <button id="footerIntroConfirmCancel" type="button">[ CANCELAR ]</button>
+                <button id="footerIntroConfirmAccept" type="button">[ REINICIAR ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         MODALES DE LOBBY (FICHAS Y SECRETOS)
+         ========================================= -->
+    <div id="systemToast" class="system-toast"></div>
+    <div id="charModal" class="modal-overlay" onclick="closeModal(event, 'charModal')">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header" id="modalHeader"><h2 class="modal-title" id="modalTitle">NAME <span class="cursor-blink">█</span></h2><button class="close-btn" onclick="closeModal(null, 'charModal')">[X]</button></div>
+            <div class="modal-body">
+                <div class="modal-img-container"><img loading="lazy" id="modalImg" src="" class="modal-img" decoding="async"></div>
+                <div class="modal-info"><h3 class="modal-role" id="modalRole">Role</h3><div class="modal-desc" id="modalDesc"></div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="secretModal" class="modal-overlay" onclick="closeSecretModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header"><h2 class="modal-title" style="color: #ffaaac;">SECRET_ARCHIVES_MENU <span class="cursor-blink">█</span></h2><button class="close-btn" onclick="closeSecretModal()">[X]</button></div>
+            <div class="secret-body">
+                <div class="secret-folder-view" id="secretFolderView">
+                    <div class="secret-explorer-sidebar" aria-hidden="true">
+                        <strong>FILE_AND_FOLDER_TASKS</strong>
+                        <span>OPEN_SELECTED_FOLDER</span>
+                        <span>SCAN_HIDDEN_IMAGES</span>
+                        <strong>OTHER_PLACES</strong>
+                        <span>InfinityOS</span>
+                        <span>GARAGE_SESSION</span>
+                    </div>
+                    <button type="button" class="secret-folder-card" data-cg-secret-folder-open aria-label="Abrir carpeta SECRET_GARAGE_ARCHIVES">
+                        <span class="secret-folder-icon" aria-hidden="true"></span>
+                        <span class="secret-folder-name">SECRET_GARAGE_ARCHIVES</span>
+                        <span class="secret-folder-meta">CLASSIFIED_IMG_CACHE // CLICK_TO_OPEN</span>
+                    </button>
+                </div>
+                <div class="file-list" id="secretFileList"></div>
+                <div class="secret-viewer" id="secretViewer"><div class="secret-viewer-header"><button class="btn-back" data-cg-secret-back>[ < VOLVER_A_LISTA ]</button></div>
+                <img loading="lazy" id="secretViewerImg" src="" class="secret-img-large glitch-effect" decoding="async"><div class="secret-lore-text" id="secretViewerDesc"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         INTERFAZ DE NOVELA VISUAL: MITSUKI
+         ========================================= -->
+    <div id="mitsukiOverlay" class="mitsuki-overlay" onclick="cerrarMitsuki(event)">
+        <div class="mitsuki-vn-box" onclick="event.stopPropagation()">
+            <button class="close-btn mitsuki-close-btn" onclick="cerrarMitsuki()">[X]</button>
+            <div class="mitsuki-vn-screen">
+                <div class="mitsuki-vn-header">
+                    <span>MITSUKI_SYSTEM</span>
+                    <span id="mitsukiStepCounter">TAB 01/02</span>
+                </div>
+                <div class="mitsuki-illustration-container">
+                    <img id="mitsukiIllustration" loading="lazy" src="" alt="Mitsuki" class="mitsuki-illustration glitch-effect" decoding="async">
+                </div>
+                <div id="mitsukiDialogueBox" class="mitsuki-dialogue-box">
+                    <img loading="lazy" src="assets/icons/icon-mitsuki.webp" alt="Mitsuki" class="mitsuki-portrait glitch-effect" decoding="async">
+                    <div class="mitsuki-dialogue-content">
+                        <span class="mitsuki-speaker">MITSUKI</span>
+                        <p id="mitsukiText" class="mitsuki-text"></p>
+                        <div id="mitsukiShareButtons" class="mitsuki-share-buttons">
+                <a id="mitsukiShareWA" href="#" target="_blank" rel="noopener noreferrer" class="mitsuki-share-btn"><img loading="lazy" src="assets/share/icon-share-wa.webp" alt="Compartir en WhatsApp" decoding="async"></a>
+                <a id="mitsukiShareFB" href="#" target="_blank" rel="noopener noreferrer" class="mitsuki-share-btn"><img loading="lazy" src="assets/share/icon-share-fb.webp" alt="Compartir en Facebook" decoding="async"></a>
+                <a id="mitsukiShareX" href="#" target="_blank" rel="noopener noreferrer" class="mitsuki-share-btn"><img loading="lazy" src="assets/share/icon-share-x.webp" alt="Compartir en X" decoding="async"></a>
+                <a id="mitsukiShareDC" href="#" target="_blank" rel="noopener noreferrer" class="mitsuki-share-btn"><img loading="lazy" src="assets/share/icon-share-dc.webp" alt="Compartir en Discord" decoding="async"></a>
+                        </div>
+                    </div>
+                </div>
+                <button id="mitsukiContinueBtn" class="mitsuki-continue-btn" onclick="avanzarMitsuki()">[ CONTINUAR ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         SISTEMA LÓGICO UNIFICADO (JAVASCRIPT)
+         ========================================= -->
+    <script src="js/cg-config.js?v=5205dd30f279"></script>
+    <script src="js/cg-diagnostics.js?v=cb06ac23d491"></script>
+    <script src="js/audio-global.js?v=2a0805216008"></script>
+    <script src="js/ui-global.js?v=11fa6703ae2b"></script>
+    <script src="js/i18n.js?v=f50d48889fd7"></script>
+    <script src="js/start-intro-novel.js?v=d4db6d22ab01"></script>
+    <script src="js/lobby-start.js?v=109ce590c12d"></script>
+    <script src="js/cookie-notice.js?v=6c41da046973"></script>
+    <script src="js/lobby-data.js?v=7baff8eb7a55"></script>
+    <script src="js/lobby-logic.js?v=be3083d8a42c"></script>
+    <script src="js/mitsuki-secret.js?v=6334ededf76f"></script>
+    <script>
+        (() => {
+            const sys = "color:#ff3df2;background:#16001f;border:1px solid #ff3df2;padding:2px 6px;font-family:monospace;text-shadow:0 0 8px #ff3df2;";
+            const akane = "color:#c77dff;font-weight:700;";
+            const rika = "color:#ff8a2a;font-weight:700;";
+            const momo = "color:#ff7ac8;font-weight:700;";
+            const jun = "color:#53e7ff;font-weight:700;";
+
+            console.groupCollapsed("%cCHEATGUYS_SYS // LOBBY_BOOT", sys);
+            console.log("%cAKANE:", akane, "Si abriste DevTools, elegiste la opcion de dialogo secreta. No hagas contacto visual con el stack trace.");
+            console.log("%cRIKA:", rika, "Si algo truena, subele volumen primero y depura despues.");
+            console.log("%cMOMO:", momo, "Sina dice que este sitio necesita un abrazo y quiza chorus en el bajo.");
+            console.log("%cJUN:", jun, "Todo saldra bien... probablemente. Si no, refresca y finge que era parte del ritmo.");
+            console.groupEnd();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.git
+.env
+.dev.vars
+.wrangler
+node_modules
+test-results
+playwright-report
+trash
+.codex-analysis
+.codex-remote-attachments
+ai-context
+
