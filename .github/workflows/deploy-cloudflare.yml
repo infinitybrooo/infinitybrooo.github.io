@@ -15,6 +15,7 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: 84a5120877eae87f1af6b08f6adb4dd9
+      COMMIT_MESSAGE: ${{ github.event.head_commit.message || 'GitHub Actions deployment' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,9 +27,9 @@ jobs:
 
       - name: Deploy
         if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name cheatguys-cloudflare --branch main
-
+        run: |
+          npx wrangler pages deploy . \
+            --project-name cheatguys-cloudflare \
+            --branch main \
+            --commit-hash "${GITHUB_SHA}" \
+            --commit-message "${COMMIT_MESSAGE}"
