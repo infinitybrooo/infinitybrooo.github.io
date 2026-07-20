@@ -4991,6 +4991,13 @@ p.subtitle {
     background-size: 18px 18px, 18px 18px, auto;
 }
 
+#secretModal .secret-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
 .secret-folder-view {
     display: grid;
     grid-template-columns: minmax(150px, 210px) minmax(0, 1fr);
