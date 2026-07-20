@@ -894,20 +894,106 @@ Bomba Estéreo - Fuego
         }
 
         const secretData = window.CGLobbyData?.secrets || [];
+        const SECRET_PASSWORD = "HoshiTheDiva";
+        let protectedSecretsUnlocked = false;
+        let pendingProtectedSecretIndex = null;
 
         function setSecretArchiveState(state) {
             const folder = document.getElementById('secretFolderView');
             const list = document.getElementById('secretFileList');
             const viewer = document.getElementById('secretViewer');
+            const password = document.getElementById('secretPasswordWindow');
 
             if (folder) folder.style.display = state === 'folder' ? 'grid' : 'none';
             if (list) list.style.display = state === 'list' ? 'grid' : 'none';
             if (viewer) viewer.style.display = state === 'viewer' ? 'flex' : 'none';
+            if (password) password.style.display = state === 'password' ? 'flex' : 'none';
         }
 
         function openSecretFolder() {
             setSecretArchiveState('list');
             applyActiveLanguage(document.getElementById('secretModal'));
+        }
+
+        function getSecretCommenter(desc) {
+            const text = String(desc || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase();
+
+            if (text.includes("akane dejo")) return "akane";
+            if (text.includes("rika dejo")) return "rika";
+            if (text.includes("momo dejo")) return "momo";
+            if (text.includes("jun dejo")) return "jun";
+            return "system";
+        }
+
+        function ensureSecretPasswordWindow() {
+            let passwordWindow = document.getElementById("secretPasswordWindow");
+            if (passwordWindow) return passwordWindow;
+
+            const secretBody = document.querySelector("#secretModal .secret-body");
+            if (!secretBody) return null;
+
+            passwordWindow = document.createElement("form");
+            passwordWindow.id = "secretPasswordWindow";
+            passwordWindow.className = "secret-password-window";
+            passwordWindow.setAttribute("aria-label", "Ventana de contraseña de archivo protegido");
+            passwordWindow.style.display = "none";
+            passwordWindow.innerHTML = `
+                <div class="secret-password-header">
+                    <strong>ARCHIVO_PROTEGIDO.EXE</strong>
+                    <span id="secretPasswordFilename">LOCKED_FILE</span>
+                </div>
+                <label class="secret-password-label" for="secretPasswordInput">CONTRASEÑA</label>
+                <div class="secret-password-row">
+                    <input id="secretPasswordInput" class="secret-password-input" type="password" autocomplete="off" spellcheck="false">
+                    <button class="secret-password-submit" type="submit">[ DESBLOQUEAR ]</button>
+                </div>
+                <p id="secretPasswordStatus" class="secret-password-status" aria-live="polite">ACCESO_RESTRINGIDO</p>
+                <button class="btn-back secret-password-back" type="button" data-cg-secret-password-back>[ < VOLVER_A_LISTA ]</button>
+            `;
+
+            passwordWindow.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const input = document.getElementById("secretPasswordInput");
+                const status = document.getElementById("secretPasswordStatus");
+                const candidate = String(input?.value || "");
+
+                if (candidate === SECRET_PASSWORD) {
+                    protectedSecretsUnlocked = true;
+                    if (status) status.textContent = "ACCESO_CONCEDIDO";
+                    viewSecretFile(pendingProtectedSecretIndex);
+                    return;
+                }
+
+                if (status) status.textContent = "ACCESO_DENEGADO // Quieres la contraseña? preguntale a la ansiosa morada...";
+                input?.select();
+                applyActiveLanguage(passwordWindow);
+            });
+
+            passwordWindow.querySelector("[data-cg-secret-password-back]")?.addEventListener("click", backToSecretList);
+            secretBody.appendChild(passwordWindow);
+            return passwordWindow;
+        }
+
+        function openProtectedSecret(index) {
+            const data = secretData[index];
+            const passwordWindow = ensureSecretPasswordWindow();
+            pendingProtectedSecretIndex = index;
+
+            if (!passwordWindow || !data) return;
+
+            const filename = document.getElementById("secretPasswordFilename");
+            const input = document.getElementById("secretPasswordInput");
+            const status = document.getElementById("secretPasswordStatus");
+            if (filename) filename.textContent = data.name;
+            if (input) input.value = "";
+            if (status) status.textContent = "ACCESO_RESTRINGIDO";
+
+            setSecretArchiveState("password");
+            applyActiveLanguage(document.getElementById("secretModal"));
+            window.setTimeout(() => input?.focus({ preventScroll: true }), 50);
         }
 
         function iniciarSecuenciaArchivosSecretos() {
@@ -917,9 +1003,16 @@ Bomba Estéreo - Fuego
                 secretData.forEach((file, index) => {
                     const item = document.createElement('button');
                     item.className = 'file-item';
+                    item.classList.toggle('is-locked', Boolean(file.locked));
                     item.type = 'button';
-                    item.setAttribute('aria-label', `Abrir archivo secreto ${file.name}`);
-                    item.addEventListener("click", () => viewSecretFile(index));
+                    item.setAttribute('aria-label', file.locked ? `Abrir archivo secreto protegido ${file.name}` : `Abrir archivo secreto ${file.name}`);
+                    item.addEventListener("click", () => {
+                        if (file.locked && !protectedSecretsUnlocked) {
+                            openProtectedSecret(index);
+                            return;
+                        }
+                        viewSecretFile(index);
+                    });
 
                     const thumbShell = document.createElement('span');
                     thumbShell.className = 'file-thumb-shell';
@@ -933,7 +1026,7 @@ Bomba Estéreo - Fuego
                     meta.className = 'file-meta';
                     const icon = document.createElement('span');
                     icon.className = 'file-icon';
-                    icon.textContent = `PHOTO_${String(file.id).padStart(2, '0')}`;
+                    icon.textContent = file.locked ? `PHOTO_${String(file.id).padStart(2, '0')}_LOCK` : `PHOTO_${String(file.id).padStart(2, '0')}`;
                     const name = document.createElement('span');
                     name.className = 'file-name';
                     name.textContent = file.name;
@@ -969,11 +1062,18 @@ Bomba Estéreo - Fuego
                 document.body.style.overflow = 'auto';
                 actualizarUiFlotantePorOverlays();
             }
+            protectedSecretsUnlocked = false;
+            pendingProtectedSecretIndex = null;
             AudioManager.resumeLobby();
         }
         function viewSecretFile(i) {
             const data = secretData[i];
+            const commenter = getSecretCommenter(data?.desc);
+            const viewer = document.getElementById('secretViewer');
             setSecretArchiveState('viewer');
+            if (viewer) viewer.dataset.commenter = commenter;
+            document.getElementById('secretViewerTitle').textContent = data.name;
+            document.getElementById('secretViewerMeta').textContent = `COMMENT_BY_${commenter.toUpperCase()} // ${data.name}`;
             document.getElementById('secretViewerImg').src = getResponsiveAssetUrl(data.url);
             document.getElementById('secretViewerDesc').innerHTML = data.desc;
             applyActiveLanguage(document.getElementById('secretViewer'));

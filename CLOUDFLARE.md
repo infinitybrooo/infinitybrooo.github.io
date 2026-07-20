@@ -18,7 +18,7 @@ Wrangler sirve el sitio y las funciones en `http://127.0.0.1:8788`.
 Configura estas variables en Cloudflare Pages:
 
 ```text
-CG_ALLOWED_ORIGIN=https://cheatguys-cloudflare.pages.dev
+CG_ALLOWED_ORIGIN=https://cheatguys.com
 GROQ_API_KEY
 GROQ_MODEL=llama-3.3-70b-versatile
 GEMINI_API_KEY

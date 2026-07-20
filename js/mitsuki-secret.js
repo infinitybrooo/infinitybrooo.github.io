@@ -3,7 +3,7 @@
         // Requiere que lobby-logic.js (showToast) se cargue ANTES que este archivo.
         // =====================================================
 
-        const MITSUKI_SHARE_URL = "https://cheatguys-cloudflare.pages.dev/";
+        const MITSUKI_SHARE_URL = "https://cheatguys.com/";
         const MITSUKI_SHARE_TEXT = "¡Rompí la página de CheatGuys! por andar de curioso. Escanea el código o entra al arcade aquí: " + MITSUKI_SHARE_URL;
 
         let mitsukiPaso = 0;
