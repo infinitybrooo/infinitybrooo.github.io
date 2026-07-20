@@ -46,10 +46,10 @@
     }
 
     const PORTRAITS = Object.freeze({
-        akane: "assets/icons/icon-akane.webp",
-        rika: "assets/icons/icon-rika.webp",
-        momo: "assets/icons/icon-momo.webp",
-        jun: "assets/icons/icon-jun.webp"
+        akane: "assets/icons/novel-icon-akane.png",
+        rika: "assets/icons/novel-icon-rika.png",
+        momo: "assets/icons/novel-icon-momo.png",
+        jun: "assets/icons/novel-icon-jun.png"
     });
 
     // Fuente de verdad editable de la secuencia. Para reemplazar arte, cambia background/sprites[].src.

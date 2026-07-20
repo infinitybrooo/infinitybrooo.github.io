@@ -7,7 +7,7 @@
     <title>CheatGuys! - Multiplayer Lobby</title>
     <link rel="icon" type="image/png" href="assets/branding/favicon.webp">
     <link rel="stylesheet" href="css/fonts.css?v=ea679c4af9d0">
-    <link rel="stylesheet" href="css/style.css?v=867b15ffd66e">
+    <link rel="stylesheet" href="css/style.css?v=24c402e02062">
     <link rel="stylesheet" href="css/start-intro-novel.css?v=e442bc4ce468">
     <link rel="stylesheet" href="css/galeria.css?v=884bf782506f">
 
@@ -174,7 +174,7 @@
                     </div>
 
                     <div id="startIntroDialogueBox" class="start-intro-dialogue mitsuki-dialogue-box" role="button" tabindex="0" aria-label="Continuar dialogo">
-                        <img id="startIntroPortrait" class="start-intro-portrait mitsuki-portrait glitch-effect" src="assets/icons/icon-akane.webp" alt="Retrato de Akane" decoding="async">
+                        <img id="startIntroPortrait" class="start-intro-portrait mitsuki-portrait glitch-effect" src="assets/icons/novel-icon-akane.png" alt="Retrato de Akane" decoding="async">
                         <div class="mitsuki-dialogue-content">
                             <span id="startIntroSpeaker" class="start-intro-speaker mitsuki-speaker">AKANE</span>
                             <p id="startIntroText" class="start-intro-text mitsuki-text" aria-live="polite"></p>
@@ -243,6 +243,7 @@
                 <button class="char-btn rika" data-cg-character="rika" title="Rika Tanaka" aria-label="Abrir ficha de Rika Tanaka"></button>
                 <button class="char-btn momo" data-cg-character="momo" title="Momo Fujiwara" aria-label="Abrir ficha de Momo Fujiwara"></button>
                 <button class="char-btn jun" data-cg-character="jun" title="Junpei Sakamoto" aria-label="Abrir ficha de Junpei Sakamoto"></button>
+                <button class="char-btn hoshi" data-cg-character="hoshi" title="Hoshi Himura" aria-label="Abrir recuerdo bloqueado de Hoshi Himura"><span class="char-btn-danger-label">PELIGRO</span></button>
             </div>
         </section>
 
@@ -441,6 +442,22 @@
             </div>
         </div>
     </div>
+
+    <div id="hoshiConfirmModal" class="modal-overlay hoshi-confirm-overlay" onclick="closeHoshiConfirm(event)" aria-hidden="true">
+        <div class="modal-box hoshi-confirm-box" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="hoshiConfirmTitle" aria-describedby="hoshiConfirmText">
+            <div class="modal-header hoshi-confirm-header">
+                <h2 class="modal-title" id="hoshiConfirmTitle">MEMORIA_BLOQUEADA <span class="cursor-blink">█</span></h2>
+                <button class="close-btn" type="button" data-cg-hoshi-confirm-close aria-label="Cerrar recuerdo bloqueado">[X]</button>
+            </div>
+            <div class="hoshi-confirm-body">
+                <p id="hoshiConfirmText">Recuerdo bloqueado: ¿estas seguro que quieres abrir este recuerdo? si sales traumado no es mi problema.</p>
+                <div class="hoshi-confirm-actions">
+                    <button type="button" data-cg-hoshi-confirm-close>[ CANCELAR ]</button>
+                    <button type="button" data-cg-hoshi-confirm-open>[ ABRIR_RECUERDO ]</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div id="secretModal" class="modal-overlay" onclick="closeSecretModal(event)">
         <div class="modal-box" onclick="event.stopPropagation()">
@@ -526,12 +543,12 @@
     <script src="js/cg-diagnostics.js?v=cb06ac23d491"></script>
     <script src="js/audio-global.js?v=2a0805216008"></script>
     <script src="js/ui-global.js?v=11fa6703ae2b"></script>
-    <script src="js/i18n.js?v=31a4987f333b"></script>
-    <script src="js/start-intro-novel.js?v=d4db6d22ab01"></script>
+    <script src="js/i18n.js?v=dde7792e4f69"></script>
+    <script src="js/start-intro-novel.js?v=5c981adec2f8"></script>
     <script src="js/lobby-start.js?v=109ce590c12d"></script>
     <script src="js/cookie-notice.js?v=6c41da046973"></script>
-    <script src="js/lobby-data.js?v=1191c7d80443"></script>
-    <script src="js/lobby-logic.js?v=6d1ca47fe0b7"></script>
+    <script src="js/lobby-data.js?v=d0d59e6b6f07"></script>
+    <script src="js/lobby-logic.js?v=7f50d2e25729"></script>
     <script src="js/mitsuki-secret.js?v=bb9102432957"></script>
     <script>
         (() => {

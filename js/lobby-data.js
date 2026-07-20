@@ -32,6 +32,14 @@
             desc: "<div class='char-stat-grid'><span>COLOR: CIAN</span><span>APODO: MONJE DEL RAMEN</span><span>BUILD: LUCKY_SLEEP_MODE</span></div><p><strong>Jun es el rey del desgane carismático.</strong> Relajado, sarcástico y con vibra de “todo saldrá bien... probablemente”, evita cualquier cosa que huela a responsabilidad, pero su talento musical roza lo absurdo.</p><p>Cuida a sus amigos desde la esquina, con comentarios secos y una calma casi mística. Parece operar en ahorro de energía, hasta que la banda realmente lo necesita y aparece el baterista preciso, intuitivo y sospechosamente afortunado.</p><ul class='char-lore-list'><li>Escucha una canción una vez y suele recordarla.</li><li>Tiene ritmo natural incluso caminando.</li><li>Protege al grupo desde su rincón favorito, casi sin levantarse.</li><li>Siempre trae un snack misterioso en la mochila.</li></ul>",
             color: "var(--jun-color)",
             imgUrl: "assets/characters/cards/ficha-jun.webp"
+        },
+        hoshi: {
+            name: "HOSHI HIMURA",
+            role: "Rival escolar de Akane y figura clave de su pasado (Lvl. 15)",
+            desc: "<div class='char-stat-grid'><span>EDAD: 15 AÑOS</span><span>COLOR: ROJO</span><span>APODO: PIÑA</span></div><p><strong>Hoshi es popular, competitiva y musicalmente brillante.</strong> Fue criada por su madre, la productora Kaoru Himura, para destacar desde pequeña y representar la excelencia de su familia. Está acostumbrada a recibir admiración y a medir su valor a través del talento, la disciplina y la superioridad.</p><p>En la escuela suele hablar de Akane con desprecio y llamarla “la rarita”, “el fantasma” o “la que no habla”. No la persigue activamente, pero cuando coinciden sabe exactamente cómo incomodarla, aprovechándose de que Akane rara vez responde.</p><p>Sin embargo, su actitud no nace de una simple rivalidad escolar. Hoshi conoció a Akane durante su infancia y recuerda una amistad que Akane ha bloqueado casi por completo. Para Akane, Hoshi es una chica popular que parece odiarla sin razón. Para Hoshi, Akane es una parte de su pasado que nunca logró abandonar.</p><p>Hoshi funciona como el espejo opuesto de Akane: donde una teme ser vista, la otra necesita ser admirada; donde Akane busca vínculos seguros, Hoshi aprendió a tratar las relaciones como jerarquías.</p><p><strong>¿Qué ocurrió entre ellas para que una lo recuerde todo y la otra no recuerde casi nada?</strong></p>",
+            color: "#ff003c",
+            imgUrl: "assets/characters/cards/ficha-hoshi.webp",
+            lockedMemory: true
         }
     };
 

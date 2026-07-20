@@ -810,6 +810,15 @@ Bomba Estéreo - Fuego
             document.querySelectorAll("[data-cg-secret-folder-open]").forEach((button) => {
                 button.addEventListener("click", openSecretFolder);
             });
+
+            document.querySelectorAll("[data-cg-hoshi-confirm-close]").forEach((button) => {
+                button.addEventListener("click", () => closeHoshiConfirm());
+            });
+
+            document.querySelector("[data-cg-hoshi-confirm-open]")?.addEventListener("click", () => {
+                closeHoshiConfirm();
+                abrirFichaPersonaje("hoshi", { confirmed: true });
+            });
         }
 
         // --- FUNCIÓN GLOBAL DE PANTALLA DE CARGA ---
@@ -824,23 +833,33 @@ Bomba Estéreo - Fuego
 
         // --- SISTEMA FICHAS DE PERSONAJE ---
         const charData = window.CGLobbyData?.characters || {};
+        let hoshiConfirmReturnTarget = null;
 
-        function abrirFichaPersonaje(charId) {
+        function abrirFichaPersonaje(charId, options = {}) {
+            const data = charData[charId];
+            if (data?.lockedMemory && !options.confirmed) {
+                openHoshiConfirm();
+                return;
+            }
+
             showLoadingScreen(() => {
                 // Parar lobby, poner música de ficha
                 AudioManager.playBg('bgMusicChar');
-                const data = charData[charId];
                 if (!data) {
                     if (CG_LOG) CG_LOG.error("LOBBY", "CG-LOBBY-001", "Ficha no disponible.", { charId });
                     showToast("SYSTEM: Ficha no disponible por ahora.");
                     return;
                 }
+                const modal = document.getElementById('charModal');
+                modal.dataset.character = charId;
+                modal.classList.toggle("is-hoshi-memory", Boolean(data.lockedMemory));
                 document.getElementById('modalTitle').innerHTML = data.name + ' <span class="cursor-blink">█</span>';
                 document.getElementById('modalRole').innerText = data.role;
                 document.getElementById('modalDesc').innerHTML = data.desc;
                 document.getElementById('modalHeader').style.borderBottomColor = data.color;
                 document.getElementById('modalHeader').style.setProperty('background-color', data.color);
                 document.getElementById('modalImg').src = getResponsiveAssetUrl(data.imgUrl);
+                document.getElementById('modalImg').alt = data.name;
                 applyActiveLanguage(document.getElementById('charModal'));
                 if (window.CGOverlay) {
                     window.CGOverlay.open("charModal", {
@@ -856,6 +875,48 @@ Bomba Estéreo - Fuego
                     setFloatingUiHidden(true);
                 }
             });
+        }
+
+        function openHoshiConfirm() {
+            const modal = document.getElementById("hoshiConfirmModal");
+            if (!modal) return;
+
+            hoshiConfirmReturnTarget = document.activeElement;
+            applyActiveLanguage(modal);
+            if (window.CGOverlay) {
+                window.CGOverlay.open("hoshiConfirmModal", {
+                    mode: "display",
+                    display: "flex",
+                    focusElement: document.querySelector("[data-cg-hoshi-confirm-open]"),
+                    closeOthers: false,
+                    onEscape: () => closeHoshiConfirm()
+                });
+            } else {
+                modal.style.display = "flex";
+                modal.setAttribute("aria-hidden", "false");
+                document.body.style.overflow = "hidden";
+                setFloatingUiHidden(true);
+                document.querySelector("[data-cg-hoshi-confirm-open]")?.focus();
+            }
+        }
+
+        function closeHoshiConfirm(e) {
+            if (e && e.target.id !== "hoshiConfirmModal") return;
+            const modal = document.getElementById("hoshiConfirmModal");
+            if (!modal) return;
+
+            if (window.CGOverlay) {
+                window.CGOverlay.close("hoshiConfirmModal", { returnFocus: hoshiConfirmReturnTarget });
+            } else {
+                modal.style.display = "none";
+                modal.setAttribute("aria-hidden", "true");
+                document.body.style.overflow = "auto";
+                actualizarUiFlotantePorOverlays();
+                if (hoshiConfirmReturnTarget && document.contains(hoshiConfirmReturnTarget)) {
+                    hoshiConfirmReturnTarget.focus();
+                }
+            }
+            hoshiConfirmReturnTarget = null;
         }
 
         function closeModal(e, id) {

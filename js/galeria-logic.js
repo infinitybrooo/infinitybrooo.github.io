@@ -7,9 +7,19 @@
 
     const GALLERY_BASE_PATH = "assets/images/gallery/";
     const GALLERY_THUMB_FOLDER = "thumbs/";
+    const GALLERY_MOBILE_FOLDER = "mobile/";
     const AUTO_SLIDE_MS = 6500;
     const CATEGORIES = ["clothes", "thurn", "sketch"];
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const galleryMobileQuery = window.matchMedia("(max-width: 760px)");
+    const galleryMobileFiles = new Set([
+        "akane/clothes/1",
+        "akane/clothes/3",
+        "jun/clothes/4",
+        "momo/clothes/4",
+        "momo/clothes/5",
+        "rika/clothes/5"
+    ]);
 
     const galleryData = {
         akane: {
@@ -235,6 +245,7 @@
         card.className = "gallery-file-card";
         card.dataset.thumbSrc = buildImagePath(personajeActual, category, number, true);
         card.dataset.fullSrc = buildImagePath(personajeActual, category, number, false);
+        card.dataset.mobileSrc = buildMobileImagePath(personajeActual, category, number);
         card.dataset.category = category;
         card.dataset.index = String(index);
         card.dataset.fileName = fileName;
@@ -264,6 +275,21 @@
         const folder = isThumb ? GALLERY_THUMB_FOLDER : "";
         const prefix = categoryMeta[category].filePrefix;
         return `${GALLERY_BASE_PATH}${personaje}/${folder}${prefix}-${personaje}-${number}.webp`;
+    }
+
+    function buildMobileImagePath(personaje, category, number) {
+        if (!galleryMobileFiles.has(`${personaje}/${category}/${number}`)) return "";
+
+        const prefix = categoryMeta[category].filePrefix;
+        return `${GALLERY_BASE_PATH}${personaje}/${GALLERY_MOBILE_FOLDER}${prefix}-${personaje}-${number}.webp`;
+    }
+
+    function getModalImageSrc(card) {
+        if (galleryMobileQuery.matches && card.dataset.mobileSrc) {
+            return card.dataset.mobileSrc;
+        }
+
+        return card.dataset.fullSrc;
     }
 
     function buildDisplayFileName(personaje, category, number) {
@@ -551,7 +577,11 @@
         image.onload = () => {
             if (figure) figure.classList.remove("is-loading");
         };
-        image.src = card.dataset.fullSrc;
+        image.onerror = () => {
+            if (image.src.endsWith(card.dataset.fullSrc)) return;
+            image.src = card.dataset.fullSrc;
+        };
+        image.src = getModalImageSrc(card);
     }
 
     function navigateModal(direction) {
@@ -581,6 +611,7 @@
         image.removeAttribute("src");
         image.alt = "";
         image.onload = null;
+        image.onerror = null;
 
         if (!window.CGOverlay && typeof window.actualizarUiFlotantePorOverlays === "function") {
             window.actualizarUiFlotantePorOverlays();

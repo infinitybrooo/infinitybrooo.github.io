@@ -689,7 +689,34 @@
 .char-btn.rika { border-color: var(--rika-color); background-image: url('../assets/icons/icon-rika.webp'); }
 .char-btn.momo { border-color: var(--momo-color); background-image: url('../assets/icons/icon-momo.webp'); }
 .char-btn.jun { border-color: var(--jun-color); background-image: url('../assets/icons/icon-jun.webp'); }
+.char-btn.hoshi {
+    border-color: #ff003c;
+    background-image:
+        linear-gradient(rgba(255, 0, 60, 0.18), rgba(0, 0, 0, 0.16)),
+        url('../assets/icons/icon-hoshi.webp');
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.85), 0 0 18px rgba(255, 0, 60, 0.66);
+    animation: hoshi-danger-button 1.3s steps(2, end) infinite;
+}
 .char-btn:hover { filter: brightness(1.25) saturate(1.2); animation: char-jitter 0.25s steps(3) infinite; }
+
+.char-btn-danger-label {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    left: 4px;
+    z-index: 2;
+    padding: 2px 3px;
+    color: #fff;
+    background: rgba(160, 0, 32, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #000;
+    pointer-events: none;
+}
 
 /* Logo and Subtitle */
 .main-logo { flex: 1; min-width: 0; max-width: min(82vw, 460px); width: 100%; height: auto; filter: drop-shadow(6px 6px 0px rgba(0, 0, 0, 0.9)); transition: transform 0.2s steps(4); cursor: pointer; animation: logo-idle-float 5s ease-in-out infinite; }
@@ -4476,12 +4503,13 @@ p.subtitle {
     }
 
     .character-arcade-frame .character-select {
-        grid-template-columns: repeat(4, minmax(58px, 72px));
+        flex-wrap: wrap;
+        grid-template-columns: repeat(5, minmax(54px, 72px));
         gap: 8px;
     }
 
     .char-btn {
-        width: 100%;
+        width: clamp(58px, 16vw, 72px);
         height: auto;
         aspect-ratio: 1;
         border-width: 3px;
@@ -4502,7 +4530,7 @@ p.subtitle {
 
 @media (max-width: 380px) {
     .character-arcade-frame .character-select {
-        grid-template-columns: repeat(2, 74px);
+        grid-template-columns: repeat(3, minmax(58px, 74px));
     }
 
     .quick-scroll-nav {
@@ -4521,6 +4549,18 @@ p.subtitle {
     .music-card:nth-of-type(odd),
     .music-card:nth-of-type(even) {
         transform: none !important;
+    }
+
+    .char-btn.hoshi,
+    .char-btn.hoshi::after,
+    #charModal.is-hoshi-memory .modal-box,
+    #charModal.is-hoshi-memory .modal-title,
+    #charModal.is-hoshi-memory .modal-role,
+    #charModal.is-hoshi-memory .modal-desc,
+    #charModal.is-hoshi-memory .modal-img,
+    .hoshi-confirm-box {
+        animation: none !important;
+        transition: none !important;
     }
 }
 
@@ -5731,6 +5771,187 @@ p.subtitle {
 
 .links-note-bottom span {
     background: var(--neon-cyan);
+}
+
+.char-btn.hoshi {
+    isolation: isolate;
+    border-color: #ff003c;
+    background-position: center 14%;
+    filter: saturate(1.18) contrast(1.08);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.85), 0 0 18px rgba(255, 0, 60, 0.66), inset 0 0 16px rgba(255, 0, 60, 0.22);
+    animation: hoshi-danger-button 1.3s steps(2, end) infinite;
+}
+
+.char-btn.hoshi::after {
+    z-index: 1;
+    background:
+        linear-gradient(transparent 46%, rgba(255, 255, 255, 0.28) 48%, transparent 52%),
+        linear-gradient(115deg, transparent, rgba(255, 0, 60, 0.38), transparent);
+    mix-blend-mode: screen;
+    transform: translateX(-130%);
+    animation: hoshi-danger-scan 0.9s steps(2, end) infinite;
+}
+
+.char-btn.hoshi::before {
+    content: "HOSHI";
+    color: #fff;
+    background: rgba(20, 0, 6, 0.82);
+    border-color: #ff003c;
+    opacity: 1;
+    text-shadow: 2px 2px 0 #000, 0 0 8px #ff003c;
+}
+
+.char-btn.hoshi:hover,
+.char-btn.hoshi:focus-visible {
+    animation: hoshi-danger-button 0.54s steps(2, end) infinite;
+    border-color: #fff;
+    filter: brightness(1.35) saturate(1.45) contrast(1.16);
+    box-shadow: -4px 4px 0 #000, 0 0 22px rgba(255, 0, 60, 0.92), 0 0 44px rgba(255, 0, 60, 0.42);
+}
+
+.hoshi-confirm-overlay {
+    background:
+        repeating-linear-gradient(0deg, rgba(255, 0, 60, 0.08) 0 1px, transparent 1px 7px),
+        rgba(0, 0, 0, 0.9);
+}
+
+.hoshi-confirm-box {
+    max-width: 520px;
+    border-color: #ff003c;
+    background:
+        linear-gradient(180deg, rgba(255, 0, 60, 0.14), transparent 120px),
+        rgba(8, 0, 8, 0.96);
+    box-shadow: 10px 10px 0 #000, 0 0 28px rgba(255, 0, 60, 0.5);
+    animation: hoshi-memory-glitch 1.8s steps(1, end) infinite;
+}
+
+.hoshi-confirm-header {
+    border-bottom-color: #ff003c;
+    background: rgba(80, 0, 18, 0.88);
+}
+
+.hoshi-confirm-body {
+    display: grid;
+    gap: 18px;
+    padding: 20px;
+    color: #fff;
+    font-family: var(--font-terminal);
+    font-size: clamp(18px, 4vw, 24px);
+    line-height: 1.15;
+    text-shadow: 2px 2px 0 #000, 0 0 14px rgba(255, 0, 60, 0.7);
+}
+
+.hoshi-confirm-body p {
+    margin: 0;
+}
+
+.hoshi-confirm-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.hoshi-confirm-actions button {
+    min-height: 42px;
+    color: #fff;
+    background: #140006;
+    border: 2px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 4px 4px 0 #000;
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    line-height: 1.15;
+    cursor: pointer;
+}
+
+.hoshi-confirm-actions [data-cg-hoshi-confirm-open] {
+    border-color: #ff003c;
+    background: #5c0016;
+    box-shadow: 4px 4px 0 #000, 0 0 16px rgba(255, 0, 60, 0.52);
+}
+
+#charModal.is-hoshi-memory {
+    background:
+        repeating-linear-gradient(90deg, rgba(255, 0, 60, 0.08) 0 2px, transparent 2px 16px),
+        rgba(0, 0, 0, 0.9);
+}
+
+#charModal.is-hoshi-memory .modal-box {
+    border-color: #ff003c;
+    background:
+        linear-gradient(180deg, rgba(255, 0, 60, 0.14), transparent 160px),
+        rgba(5, 0, 8, 0.96);
+    box-shadow: 12px 12px 0 #000, 0 0 32px rgba(255, 0, 60, 0.52);
+    animation: popIn 0.25s steps(5), hoshi-memory-glitch 2.2s steps(1, end) infinite;
+}
+
+#charModal.is-hoshi-memory .modal-header {
+    background:
+        linear-gradient(90deg, rgba(255, 0, 60, 0.64), rgba(18, 0, 8, 0.92)),
+        #ff003c;
+}
+
+#charModal.is-hoshi-memory .modal-title,
+#charModal.is-hoshi-memory .modal-role,
+#charModal.is-hoshi-memory .modal-desc {
+    color: #fff;
+    text-shadow: 2px 2px 0 #000, 0 0 10px rgba(255, 0, 60, 0.9);
+    animation: hoshi-text-corrupt 1.15s steps(2, end) infinite;
+}
+
+#charModal.is-hoshi-memory .modal-img {
+    border-color: #ff003c;
+    box-shadow: 5px 5px 0 #000, 0 0 22px rgba(255, 0, 60, 0.52);
+    filter: saturate(1.22) contrast(1.08);
+    animation: hoshi-image-corrupt 1.25s steps(2, end) infinite;
+}
+
+#charModal.is-hoshi-memory .char-stat-grid span {
+    border-color: rgba(255, 0, 60, 0.78);
+    background: rgba(80, 0, 18, 0.62);
+}
+
+@keyframes hoshi-danger-button {
+    0%, 100% { transform: translate(0, 0); filter: saturate(1.18) contrast(1.08); }
+    18% { transform: translate(-2px, 1px); filter: saturate(1.7) contrast(1.28) hue-rotate(-8deg); }
+    20% { transform: translate(2px, -1px); }
+    44% { transform: translate(0, 0); }
+    45% { transform: translate(3px, 0); filter: brightness(1.45) saturate(1.9); }
+    47% { transform: translate(-3px, 0); }
+    60% { transform: translate(0, 0); filter: saturate(1.2) contrast(1.1); }
+}
+
+@keyframes hoshi-danger-scan {
+    0%, 44% { transform: translateX(-130%); opacity: 0.25; }
+    45%, 52% { transform: translateX(0); opacity: 0.8; }
+    100% { transform: translateX(130%); opacity: 0.2; }
+}
+
+@keyframes hoshi-memory-glitch {
+    0%, 100% { transform: translate(0, 0); filter: none; }
+    8% { transform: translate(-3px, 1px); filter: saturate(1.5); }
+    9% { transform: translate(3px, -1px); }
+    10%, 52% { transform: translate(0, 0); }
+    53% { transform: translate(4px, 0); filter: hue-rotate(-18deg) contrast(1.16); }
+    54% { transform: translate(-2px, 0); }
+    55% { transform: translate(0, 0); filter: none; }
+}
+
+@keyframes hoshi-text-corrupt {
+    0%, 100% { transform: translate(0, 0); filter: none; }
+    16% { transform: translate(1px, 0); filter: blur(0.2px); }
+    18% { transform: translate(-2px, 0); color: #ffb6c4; }
+    20%, 64% { transform: translate(0, 0); color: #fff; }
+    65% { transform: translate(2px, -1px); }
+    66% { transform: translate(-1px, 1px); }
+}
+
+@keyframes hoshi-image-corrupt {
+    0%, 100% { transform: translate(0, 0); filter: saturate(1.22) contrast(1.08); }
+    11% { transform: translate(-4px, 1px) skewX(-1deg); filter: saturate(1.9) hue-rotate(-14deg); }
+    12% { transform: translate(4px, -1px) skewX(1deg); }
+    13%, 58% { transform: translate(0, 0); filter: saturate(1.22) contrast(1.08); }
+    59% { transform: translate(2px, 0); filter: brightness(1.28) contrast(1.22); }
+    60% { transform: translate(-2px, 0); }
 }
 
 @media (min-width: 920px) {
