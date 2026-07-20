@@ -4945,6 +4945,26 @@ p.subtitle {
     animation: cg-panel-boot 0.24s steps(4), secret-window-glitch 6.5s steps(1, end) infinite;
 }
 
+#secretModal.modal-overlay {
+    align-items: flex-start;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+#secretModal .modal-box {
+    flex: 0 0 auto;
+    max-height: calc(100dvh - 36px);
+    margin-block: max(16px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-bottom));
+    overflow-x: hidden;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
 #secretModal .modal-box > * {
     position: relative;
     z-index: 1;
@@ -4996,6 +5016,8 @@ p.subtitle {
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
 }
 
 .secret-folder-view {
