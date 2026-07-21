@@ -986,6 +986,7 @@ Bomba Estéreo - Fuego
             if (text.includes("rika dejo")) return "rika";
             if (text.includes("momo dejo")) return "momo";
             if (text.includes("jun dejo")) return "jun";
+            if (text.includes("mitsuki dejo")) return "mitsuki";
             return "system";
         }
 

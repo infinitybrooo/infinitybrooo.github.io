@@ -5324,6 +5324,11 @@ p.subtitle {
     --secret-commenter-rgb: 0, 191, 255;
 }
 
+.secret-viewer[data-commenter="mitsuki"] {
+    --secret-commenter-accent: #9b4d68;
+    --secret-commenter-rgb: 155, 77, 104;
+}
+
 .secret-file-window,
 .secret-password-window {
     display: none;
