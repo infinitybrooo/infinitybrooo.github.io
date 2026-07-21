@@ -7,6 +7,7 @@ export default [
       "node_modules/**",
       "docs/**",
       "assets/**",
+      "js/vendor/**",
       ".wrangler/**",
       "test-results/**",
       "playwright-report/**",
