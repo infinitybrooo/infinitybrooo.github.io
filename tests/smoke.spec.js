@@ -150,6 +150,49 @@ test("fichas de personajes y archivos secretos abren y cierran con Escape", asyn
     expect(audit.failedResources).toEqual([]);
 });
 
+test("archivos secretos cargan variantes moviles sin imagen rota", async ({ page }) => {
+    await page.setViewportSize({ width: 393, height: 852 });
+    const audit = await preparePage(page);
+    await page.goto("/index.html");
+
+    const results = await page.evaluate(async () => {
+        const files = window.CGLobbyData?.secrets || [];
+        const loadImage = (url) => new Promise((resolve) => {
+            const image = new Image();
+            image.decoding = "async";
+            image.onload = () => resolve({
+                url,
+                resolvedUrl: image.currentSrc || image.src,
+                ok: image.naturalWidth > 0,
+                naturalWidth: image.naturalWidth,
+                naturalHeight: image.naturalHeight
+            });
+            image.onerror = () => resolve({
+                url,
+                resolvedUrl: image.currentSrc || image.src,
+                ok: false,
+                naturalWidth: 0,
+                naturalHeight: 0
+            });
+            image.src = typeof window.getResponsiveAssetUrl === "function"
+                ? window.getResponsiveAssetUrl(url)
+                : url;
+        });
+
+        return Promise.all(files.map(async (file) => ({
+            id: file.id,
+            name: file.name,
+            ...(await loadImage(file.url))
+        })));
+    });
+
+    expect(results).not.toEqual([]);
+    expect(results.filter((result) => !result.ok)).toEqual([]);
+    expect(results.every((result) => result.resolvedUrl.includes("/mobile/"))).toBe(true);
+    expect(audit.consoleErrors).toEqual([]);
+    expect(audit.failedResources).toEqual([]);
+});
+
 test("PRESS START aparece solo en la primera entrada de cada sesion", async ({ page }) => {
     await preparePage(page);
     await page.goto("/index.html");

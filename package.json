@@ -16,6 +16,7 @@
     "test": "playwright test",
     "test:a11y": "playwright test tests/a11y.spec.js",
     "assets:report": "node tools/assets-report.mjs",
+    "assets:secrets": "node tools/generate-secret-assets.mjs",
     "assets:unused": "node tools/find-unused-assets.mjs",
     "audit:perf": "node tools/lighthouse-audit.mjs",
     "screenshots:smoke": "node tools/capture-smoke-screenshots.mjs",

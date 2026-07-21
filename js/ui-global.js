@@ -155,7 +155,7 @@
 
     function getResponsiveAssetUrl(url) {
         if (!window.matchMedia || !window.matchMedia("(max-width: 768px)").matches) return url;
-        return url.replace(/\/([^/]+\.webp)$/i, "/mobile/$1");
+        return url.replace(/\/([^/]+\.(?:png|jpe?g|webp))$/i, "/mobile/$1");
     }
 
     function setupSidebarState() {

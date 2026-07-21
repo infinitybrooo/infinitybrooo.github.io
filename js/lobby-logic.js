@@ -1136,7 +1136,12 @@ Bomba Estéreo - Fuego
             if (viewer) viewer.dataset.commenter = commenter;
             document.getElementById('secretViewerTitle').textContent = data.name;
             document.getElementById('secretViewerMeta').textContent = `COMMENT_BY_${commenter.toUpperCase()} // ${data.name}`;
-            document.getElementById('secretViewerImg').src = getResponsiveAssetUrl(data.url);
+            const secretViewerImg = document.getElementById('secretViewerImg');
+            secretViewerImg.onerror = () => {
+                if (secretViewerImg.getAttribute("src") === data.url) return;
+                secretViewerImg.src = data.url;
+            };
+            secretViewerImg.src = getResponsiveAssetUrl(data.url);
             document.getElementById('secretViewerDesc').innerHTML = data.desc;
             applyActiveLanguage(document.getElementById('secretViewer'));
         }
